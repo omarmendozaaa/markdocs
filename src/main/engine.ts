@@ -130,9 +130,10 @@ export class Engine extends EventEmitter {
       await this.run(this.uvPath, ['venv', '--python', PYTHON_VERSION, '--clear', this.venvDir])
 
       this.set({ step: 'Instalando Docling (puede tardar varios minutos)' })
-      await this.run(this.uvPath, [
-        'pip', 'install', '--python', this.python, '--torch-backend', 'cpu', 'docling'
-      ])
+      // CPU builds of PyTorch keep the download small on Linux and Windows;
+      // macOS wheels are already CPU/Metal, so the default index is used there.
+      const torch = process.platform === 'darwin' ? [] : ['--torch-backend', 'cpu']
+      await this.run(this.uvPath, ['pip', 'install', '--python', this.python, ...torch, 'docling'])
 
       this.set({ step: 'Descargando modelos de análisis y OCR' })
       await this.run(this.python, [this.workerScript, '--warmup'])

@@ -18,12 +18,13 @@ const assert = (cond, msg) => {
   console.log('ok  ' + msg)
 }
 
+// E2E_APP=<path to a packaged executable> tests a built package instead of out/.
 const app = await electron.launch({
-  args: ['.'],
+  ...(process.env.E2E_APP ? { executablePath: path.resolve(process.env.E2E_APP), args: [] } : { args: ['.'] }),
   env: {
     ...process.env,
     MARKDOCS_USER_DATA: path.join(root, 'userdata'),
-    MARKDOCS_ENGINE_DIR: path.join(root, 'engine')
+    MARKDOCS_ENGINE_DIR: process.env.E2E_ENGINE_DIR ? path.resolve(process.env.E2E_ENGINE_DIR) : path.join(root, 'engine')
   }
 })
 const page = await app.firstWindow()

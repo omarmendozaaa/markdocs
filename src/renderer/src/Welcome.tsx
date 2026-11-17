@@ -39,7 +39,7 @@ export function Welcome(p: Props) {
           </button>
           <button className="path-card" onClick={p.onImportFolder}>
             <IconFolder size={22} />
-            <b>Carpeta de Windows</b>
+            <b>Carpeta del equipo</b>
             <span>Convierte todo lo que hay dentro, incluidas subcarpetas, replicando la estructura.</span>
           </button>
           <button className="path-card" onClick={p.onNewFolder}>

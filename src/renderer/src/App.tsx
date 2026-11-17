@@ -134,7 +134,7 @@ export function App() {
   const dialogFolder = dialog && 'id' in dialog ? folders.find((f) => f.id === dialog.id) : undefined
 
   return (
-    <div className="app">
+    <div className="app" data-platform={state.platform}>
       <header className="titlebar">
         <div className="logo">
           <IconLogo />

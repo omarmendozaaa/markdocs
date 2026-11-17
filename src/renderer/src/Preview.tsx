@@ -124,7 +124,7 @@ export function Preview({ state, file, onBack, onConvert }: Props) {
           </span>
         )}
         <button className="btn" disabled={!doc} onClick={() => doc && void window.api.showInFolder(doc.outputPath)}>
-          Mostrar en el Explorador
+          Mostrar en carpeta
         </button>
         <button className="btn" disabled={working} onClick={() => onConvert([file.id])}>
           Reconvertir

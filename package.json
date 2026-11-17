@@ -1,12 +1,15 @@
 {
   "name": "markdocs",
-  "version": "0.1.0",
-  "description": "Convierte PDF, Word, Excel, PowerPoint, HTML e imágenes a Markdown en tu equipo, con Docling.",
+  "version": "0.2.0",
+  "description": "Convierte PDF, Word, Excel, PowerPoint, HTML e imágenes a Markdown en tu equipo, con Docling. Para Linux, macOS y Windows.",
   "main": "./out/main/index.js",
   "author": "Markdocs contributors",
   "license": "MIT",
   "homepage": "https://github.com/omarmendozaaa/markdocs",
-  "repository": { "type": "git", "url": "https://github.com/omarmendozaaa/markdocs.git" },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/omarmendozaaa/markdocs.git"
+  },
   "scripts": {
     "dev": "electron-vite dev",
     "build": "electron-vite build",
@@ -14,8 +17,7 @@
     "start": "electron-vite preview",
     "fetch-uv": "node scripts/fetch-uv.mjs",
     "e2e": "node scripts/e2e.mjs",
-    "dist:win": "npm run build && electron-builder --win --publish never",
-    "dist:linux": "npm run build && electron-builder --linux --publish never"
+    "dist": "npm run build && electron-builder --publish never"
   },
   "devDependencies": {
     "@types/dompurify": "^3.0.5",
@@ -37,14 +39,57 @@
   "build": {
     "appId": "io.github.omarmendozaaa.markdocs",
     "productName": "Markdocs",
-    "directories": { "output": "dist" },
-    "files": ["out/**/*", "package.json"],
-    "extraResources": [
-      { "from": "engine", "to": "engine", "filter": ["*.py"] },
-      { "from": "resources/bin", "to": "bin", "filter": ["uv*"] }
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "out/**/*",
+      "package.json"
     ],
-    "win": { "target": [{ "target": "nsis", "arch": ["x64"] }], "icon": "build/icon.png" },
-    "nsis": { "oneClick": false, "perMachine": false, "allowToChangeInstallationDirectory": true, "artifactName": "Markdocs-Setup-${version}.${ext}" },
-    "linux": { "target": ["AppImage"], "category": "Office", "icon": "build/icon.png" }
+    "extraResources": [
+      {
+        "from": "engine",
+        "to": "engine",
+        "filter": [
+          "*.py"
+        ]
+      },
+      {
+        "from": "resources/bin",
+        "to": "bin",
+        "filter": [
+          "uv*"
+        ]
+      }
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "build/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "tar.gz"
+      ],
+      "category": "Office",
+      "icon": "build/icon.png",
+      "synopsis": "Convierte documentos a Markdown"
+    },
+    "artifactName": "Markdocs-${version}-${os}-${arch}.${ext}",
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "category": "public.app-category.productivity",
+      "icon": "build/icon.png",
+      "identity": "-"
+    }
   }
 }

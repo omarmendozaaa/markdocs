@@ -484,7 +484,8 @@ if (!app.requestSingleInstanceLock()) {
       if (process.platform !== 'darwin') win?.setTitleBarOverlay(overlayColors())
     })
 
-    Menu.setApplicationMenu(null)
+    // macOS needs the default menu for Cmd+Q and the edit shortcuts.
+    if (process.platform !== 'darwin') Menu.setApplicationMenu(null)
     registerProtocol()
     registerIpc()
     createWindow()
